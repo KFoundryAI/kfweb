@@ -2,98 +2,74 @@
 
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { Mail, Linkedin, Calendar } from 'lucide-react'
-
-// Note: Metadata would be defined in a separate layout.tsx or via generateMetadata for server components
+import { Label } from '@/components/ui/label'
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="py-24 bg-cream">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-brown mb-6">
-                Contact Us
-              </h1>
-              <div className="w-24 h-1 bg-copper mb-8"></div>
-              <p className="text-xl text-grey">
-                Ready to transform your business with AI? We would love to hear from you.
+      <main className="flex-1 bg-cream">
+        <section className="py-20">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="mb-12">
+              <h1 className="text-5xl md:text-6xl font-heading font-bold text-brown mb-4">Let&apos;s Talk</h1>
+              <div className="w-20 h-1 bg-copper mb-5"></div>
+              <p className="text-lg md:text-xl text-grey max-w-2xl">
+                We&apos;re excited to help you forge the future with AI. Start a conversation with our team and let&apos;s see what we can build together.
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* Contact Options */}
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              {/* Email */}
-              <div className="text-center p-8 rounded-lg border border-copper/20">
-                <Mail className="h-12 w-12 text-copper mx-auto mb-6" />
-                <h2 className="text-xl font-heading font-bold text-brown mb-4">Email</h2>
-                <a
-                  href="mailto:hello@kfoundry.ai"
-                  className="text-grey hover:text-copper transition-colors"
-                >
-                  hello@kfoundry.ai
-                </a>
+            <div className="grid md:grid-cols-3 gap-12 bg-white rounded-xl shadow-lg overflow-hidden">
+              {/* Contact Form */}
+              <div className="md:col-span-2 p-8">
+                <form className="space-y-6">
+                  <div>
+                    <Label htmlFor="name" className="text-brown font-semibold">Name</Label>
+                    <Input id="name" name="name" placeholder="Your Name" className="mt-1 bg-cream border-copper/30 focus-visible:ring-copper" required />
+                  </div>
+                  <div>
+                    <Label htmlFor="email" className="text-brown font-semibold">Email</Label>
+                    <Input id="email" name="email" type="email" placeholder="you@email.com" className="mt-1 bg-cream border-copper/30 focus-visible:ring-copper" required />
+                  </div>
+                  <div>
+                    <Label htmlFor="company" className="text-brown font-semibold">Company</Label>
+                    <Input id="company" name="company" placeholder="Company or Organization" className="mt-1 bg-cream border-copper/30 focus-visible:ring-copper" />
+                  </div>
+                  <div>
+                    <Label htmlFor="message" className="text-brown font-semibold">Message</Label>
+                    <Textarea id="message" name="message" placeholder="How can we help you?" className="mt-1 bg-cream border-copper/30 focus-visible:ring-copper" rows={5} required />
+                  </div>
+                  <Button type="submit" className="bg-copper text-cream font-bold hover:bg-brown w-full py-3 text-lg">Send Message</Button>
+                </form>
               </div>
-
-              {/* Schedule */}
-              <div className="text-center p-8 rounded-lg border border-copper/20">
-                <Calendar className="h-12 w-12 text-copper mx-auto mb-6" />
-                <h2 className="text-xl font-heading font-bold text-brown mb-4">Schedule</h2>
-                <Button
-                  variant="outline"
-                  className="border-burgundy text-burgundy hover:bg-burgundy hover:text-cream"
-                  onClick={() => window.open('https://calendly.com/chase-kfoundry/30min', '_blank')}
-                >
-                  Book a Call
-                </Button>
-              </div>
-
-              {/* LinkedIn */}
-              <div className="text-center p-8 rounded-lg border border-copper/20">
-                <Linkedin className="h-12 w-12 text-copper mx-auto mb-6" />
-                <h2 className="text-xl font-heading font-bold text-brown mb-4">LinkedIn</h2>
-                <a
-                  href="https://www.linkedin.com/company/kfoundry"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-grey hover:text-copper transition-colors"
-                >
-                  Follow Us
-                </a>
-              </div>
+              {/* Sidebar */}
+              <aside className="bg-cream border-l-2 border-copper/20 p-8 flex flex-col justify-between">
+                <div>
+                  <h2 className="text-xl font-heading font-bold text-brown mb-4">Contact Info</h2>
+                  <p className="mb-2 text-brown font-medium">Email:</p>
+                  <a href="mailto:hello@kfoundry.ai" className="text-copper text-base font-semibold break-words mb-4 block hover:underline">hello@kfoundry.ai</a>
+                  <p className="mb-2 text-brown font-medium">Location:</p>
+                  <p className="text-grey mb-4">Los Angeles, CA</p>
+                </div>
+                <div className="mt-8">
+                  <h3 className="text-base font-heading text-brown font-semibold mb-2">Ready to Talk?</h3>
+                  <a
+                    href="https://calendly.com/chase-kfoundry/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block w-full rounded-lg bg-copper text-cream text-center py-3 px-6 font-bold hover:bg-brown transition mb-2"
+                  >
+                    Book a Call
+                  </a>
+                  {/* Optionally, you could add Calendly embed here */}
+                </div>
+              </aside>
             </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-24 bg-burgundy text-center">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-cream">
-              Let's Start the Conversation
-            </h2>
-            <p className="text-xl mb-8 text-cream/80 max-w-2xl mx-auto">
-              Whether you have a specific project in mind or just want to explore the possibilities,
-              we are here to help.
-            </p>
-            <Button
-              className="bg-gold hover:bg-copper text-cream px-8 py-6 text-lg"
-              onClick={() => window.open('https://calendly.com/chase-kfoundry/30min', '_blank')}
-            >
-              Schedule a Consultation
-            </Button>
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   )
