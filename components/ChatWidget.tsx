@@ -10,7 +10,8 @@ interface Message {
 
 const SPARK_OPENING: Message = {
   role: 'assistant',
-  content: "Hey there 👋 I'm Spark — KFoundry's AI. I help companies figure out where AI actually makes sense (and where it's just hype). What's on your mind?",
+  content:
+    "Hey there 👋 I'm Spark — KFoundry's AI. I help companies figure out where AI actually makes sense (and where it's just hype). What's on your mind?",
 }
 
 export default function ChatWidget() {
@@ -55,6 +56,7 @@ export default function ChatWidget() {
       ])
     }
     setLoading(false)
+    inputRef.current?.focus()
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -70,7 +72,11 @@ export default function ChatWidget() {
     const parts = text.split(/(\*\*[^*]+\*\*)/g)
     return parts.map((part, i) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={i} className="font-semibold">{part.slice(2, -2)}</strong>
+        return (
+          <strong key={i} className="font-semibold">
+            {part.slice(2, -2)}
+          </strong>
+        )
       }
       // Convert links
       const linkParts = part.split(/(\[.*?\]\(.*?\))/g)
@@ -78,13 +84,35 @@ export default function ChatWidget() {
         const linkMatch = lp.match(/\[(.*?)\]\((.*?)\)/)
         if (linkMatch) {
           return (
-            <a key={`${i}-${j}`} href={linkMatch[2]} target="_blank" rel="noopener noreferrer"
-              className="text-copper underline hover:text-brown">
+            <a
+              key={`${i}-${j}`}
+              href={linkMatch[2]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-copper underline hover:text-brown"
+            >
               {linkMatch[1]}
             </a>
           )
         }
-        return <span key={`${i}-${j}`}>{lp}</span>
+        // Convert bare URLs
+        const urlParts = lp.split(/(https?:\/\/[^\s)]+)/g)
+        return urlParts.map((up, k) => {
+          if (/^https?:\/\//.test(up)) {
+            return (
+              <a
+                key={`${i}-${j}-${k}`}
+                href={up}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-copper underline hover:text-brown"
+              >
+                {up}
+              </a>
+            )
+          }
+          return <span key={`${i}-${j}-${k}`}>{up}</span>
+        })
       })
     })
   }
@@ -95,29 +123,29 @@ export default function ChatWidget() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-50 bg-copper hover:bg-brown text-cream rounded-full p-4 shadow-lg transition-all hover:scale-105"
+          className="fixed bottom-6 right-6 z-50 rounded-full bg-copper p-4 text-cream shadow-lg transition-all hover:scale-105 hover:bg-brown"
           aria-label="Open AI chat"
         >
-          <MessageCircle className="w-6 h-6" />
+          <MessageCircle className="h-6 w-6" />
         </button>
       )}
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[380px] max-h-[600px] bg-white rounded-2xl shadow-2xl border border-copper/20 flex flex-col overflow-hidden">
+        <div className="border-copper/20 fixed bottom-6 right-6 z-50 flex max-h-[600px] w-[380px] flex-col overflow-hidden rounded-2xl border bg-white shadow-2xl">
           {/* Header */}
-          <div className="bg-brown text-cream px-5 py-4 flex items-center justify-between">
+          <div className="flex items-center justify-between bg-brown px-5 py-4 text-cream">
             <div>
-              <h3 className="font-heading font-bold text-base">Spark</h3>
+              <h3 className="font-heading text-base font-bold">Spark</h3>
               <p className="text-cream/70 text-xs">KFoundry&apos;s AI Use Case Explorer</p>
             </div>
             <button onClick={() => setOpen(false)} className="text-cream/70 hover:text-cream">
-              <X className="w-5 h-5" />
+              <X className="h-5 w-5" />
             </button>
           </div>
 
           {/* Chat area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[300px] max-h-[420px] bg-cream/50">
+          <div className="bg-cream/50 max-h-[420px] min-h-[300px] flex-1 space-y-3 overflow-y-auto p-4">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -126,8 +154,8 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-copper text-cream rounded-br-md'
-                      : 'bg-white text-brown border border-copper/15 rounded-bl-md shadow-sm'
+                      ? 'rounded-br-md bg-copper text-cream'
+                      : 'border-copper/15 rounded-bl-md border bg-white text-brown shadow-sm'
                   }`}
                 >
                   {formatContent(msg.content)}
@@ -136,8 +164,8 @@ export default function ChatWidget() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-white text-brown/50 rounded-2xl rounded-bl-md px-4 py-2.5 border border-copper/15 shadow-sm">
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                <div className="text-brown/50 border-copper/15 rounded-2xl rounded-bl-md border bg-white px-4 py-2.5 shadow-sm">
+                  <Loader2 className="h-4 w-4 animate-spin" />
                 </div>
               </div>
             )}
@@ -145,7 +173,7 @@ export default function ChatWidget() {
           </div>
 
           {/* Input */}
-          <div className="p-3 border-t border-copper/10 bg-white">
+          <div className="border-copper/10 border-t bg-white p-3">
             <div className="flex gap-2">
               <input
                 ref={inputRef}
@@ -154,15 +182,15 @@ export default function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Type a message..."
-                className="flex-1 px-3 py-2 rounded-lg border border-copper/30 bg-cream text-brown text-sm focus:outline-none focus:ring-2 focus:ring-copper/50"
+                className="border-copper/30 focus:ring-copper/50 flex-1 rounded-lg border bg-cream px-3 py-2 text-sm text-brown focus:outline-none focus:ring-2"
                 disabled={loading}
               />
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || loading}
-                className="bg-copper text-cream p-2 rounded-lg hover:bg-brown transition disabled:opacity-40"
+                className="rounded-lg bg-copper p-2 text-cream transition hover:bg-brown disabled:opacity-40"
               >
-                <Send className="w-4 h-4" />
+                <Send className="h-4 w-4" />
               </button>
             </div>
           </div>
