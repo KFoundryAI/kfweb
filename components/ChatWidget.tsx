@@ -8,12 +8,14 @@ interface Message {
   content: string
 }
 
+const SPARK_OPENING: Message = {
+  role: 'assistant',
+  content: "Hey there 👋 I'm Spark — KFoundry's AI. I help companies figure out where AI actually makes sense (and where it's just hype). What's on your mind?",
+}
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
-  const [step, setStep] = useState<'intro' | 'chat'>('intro')
-  const [name, setName] = useState('')
-  const [company, setCompany] = useState('')
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>([SPARK_OPENING])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -24,42 +26,10 @@ export default function ChatWidget() {
   }, [messages])
 
   useEffect(() => {
-    if (open && step === 'chat') {
+    if (open) {
       inputRef.current?.focus()
     }
-  }, [open, step])
-
-  const startChat = async () => {
-    setStep('chat')
-    setLoading(true)
-
-    // Send initial greeting
-    const greeting: Message = {
-      role: 'user',
-      content: `Hi, I'm ${name || 'someone'}${company ? ` from ${company}` : ''}. I'm curious about how AI could help my business.`,
-    }
-
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [greeting],
-          name,
-          company,
-        }),
-      })
-      const data = await res.json()
-      setMessages([
-        { role: 'assistant', content: data.reply || "Hey! Tell me about your business — what's eating your time?" },
-      ])
-    } catch {
-      setMessages([
-        { role: 'assistant', content: "Hey! I'm having a moment — but tell me about your business and I'll figure it out." },
-      ])
-    }
-    setLoading(false)
-  }
+  }, [open])
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return
@@ -74,11 +44,7 @@ export default function ChatWidget() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: updatedMessages,
-          name,
-          company,
-        }),
+        body: JSON.stringify({ messages: updatedMessages }),
       })
       const data = await res.json()
       setMessages([...updatedMessages, { role: 'assistant', content: data.reply }])
@@ -142,106 +108,64 @@ export default function ChatWidget() {
           {/* Header */}
           <div className="bg-brown text-cream px-5 py-4 flex items-center justify-between">
             <div>
-              <h3 className="font-heading font-bold text-base">KFoundry AI</h3>
-              <p className="text-cream/70 text-xs">Explore what AI can do for you</p>
+              <h3 className="font-heading font-bold text-base">Spark</h3>
+              <p className="text-cream/70 text-xs">KFoundry&apos;s AI Use Case Explorer</p>
             </div>
             <button onClick={() => setOpen(false)} className="text-cream/70 hover:text-cream">
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Intro gate */}
-          {step === 'intro' && (
-            <div className="p-5 flex-1">
-              <p className="text-brown text-sm mb-4">
-                Hey! I&apos;m the KFoundry AI — I help companies figure out where AI can actually move the needle. Give me a bit of context and let&apos;s explore.
-              </p>
-              <div className="space-y-3">
-                <div>
-                  <label className="text-xs font-semibold text-brown/70 uppercase tracking-wider">Your name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Alex"
-                    className="w-full mt-1 px-3 py-2 rounded-lg border border-copper/30 bg-cream text-brown text-sm focus:outline-none focus:ring-2 focus:ring-copper/50"
-                  />
-                </div>
-                <div>
-                  <label className="text-xs font-semibold text-brown/70 uppercase tracking-wider">Company</label>
-                  <input
-                    type="text"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    placeholder="e.g. Acme Corp"
-                    className="w-full mt-1 px-3 py-2 rounded-lg border border-copper/30 bg-cream text-brown text-sm focus:outline-none focus:ring-2 focus:ring-copper/50"
-                  />
-                </div>
-                <button
-                  onClick={startChat}
-                  disabled={!name.trim()}
-                  className="w-full bg-copper text-cream font-semibold py-2.5 rounded-lg hover:bg-brown transition disabled:opacity-40 disabled:cursor-not-allowed text-sm"
-                >
-                  Let&apos;s Talk AI →
-                </button>
-              </div>
-            </div>
-          )}
-
           {/* Chat area */}
-          {step === 'chat' && (
-            <>
-              <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[300px] max-h-[420px] bg-cream/50">
-                {messages.map((msg, i) => (
-                  <div
-                    key={i}
-                    className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                        msg.role === 'user'
-                          ? 'bg-copper text-cream rounded-br-md'
-                          : 'bg-white text-brown border border-copper/15 rounded-bl-md shadow-sm'
-                      }`}
-                    >
-                      {formatContent(msg.content)}
-                    </div>
-                  </div>
-                ))}
-                {loading && (
-                  <div className="flex justify-start">
-                    <div className="bg-white text-brown/50 rounded-2xl rounded-bl-md px-4 py-2.5 border border-copper/15 shadow-sm">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                    </div>
-                  </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-
-              {/* Input */}
-              <div className="p-3 border-t border-copper/10 bg-white">
-                <div className="flex gap-2">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder="Type a message..."
-                    className="flex-1 px-3 py-2 rounded-lg border border-copper/30 bg-cream text-brown text-sm focus:outline-none focus:ring-2 focus:ring-copper/50"
-                    disabled={loading}
-                  />
-                  <button
-                    onClick={sendMessage}
-                    disabled={!input.trim() || loading}
-                    className="bg-copper text-cream p-2 rounded-lg hover:bg-brown transition disabled:opacity-40"
-                  >
-                    <Send className="w-4 h-4" />
-                  </button>
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-[300px] max-h-[420px] bg-cream/50">
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                    msg.role === 'user'
+                      ? 'bg-copper text-cream rounded-br-md'
+                      : 'bg-white text-brown border border-copper/15 rounded-bl-md shadow-sm'
+                  }`}
+                >
+                  {formatContent(msg.content)}
                 </div>
               </div>
-            </>
-          )}
+            ))}
+            {loading && (
+              <div className="flex justify-start">
+                <div className="bg-white text-brown/50 rounded-2xl rounded-bl-md px-4 py-2.5 border border-copper/15 shadow-sm">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input */}
+          <div className="p-3 border-t border-copper/10 bg-white">
+            <div className="flex gap-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type a message..."
+                className="flex-1 px-3 py-2 rounded-lg border border-copper/30 bg-cream text-brown text-sm focus:outline-none focus:ring-2 focus:ring-copper/50"
+                disabled={loading}
+              />
+              <button
+                onClick={sendMessage}
+                disabled={!input.trim() || loading}
+                className="bg-copper text-cream p-2 rounded-lg hover:bg-brown transition disabled:opacity-40"
+              >
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </>
