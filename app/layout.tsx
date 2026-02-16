@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Space_Grotesk, DM_Sans } from 'next/font/google'
+import ChatWidget from '@/components/ChatWidget'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -32,7 +33,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${dmSans.variable}`}>
-      <body className="font-body">{children}</body>
+      <body className="font-body">
+        {children}
+        <ChatWidget />
+      </body>
     </html>
   )
 }
