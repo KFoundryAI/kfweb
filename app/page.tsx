@@ -19,7 +19,7 @@ export default function Home() {
           <p className="text-brown/90 text-lg md:text-2xl mb-10 max-w-2xl mx-auto">
             Most companies know AI matters. Few have the bandwidth to act on it.
             <br className="hidden md:inline" />
-            We bring decades of business and engineering experience to find high-impact opportunities—then build and ship them in weeks, not quarters.
+            We bring decades of business and engineering experience to find high-impact opportunities-then build and ship them in weeks, not quarters.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -38,20 +38,39 @@ export default function Home() {
           </div>
         </section>
 
-        {/* The Opportunity */}
+        {/* How We Work */}
         <section className="py-24 bg-white px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="font-heading text-brown text-3xl md:text-4xl font-bold mb-4">The Opportunity</h2>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-heading text-brown text-3xl md:text-4xl font-bold mb-4">How We Work</h2>
             <div className="w-24 h-1 bg-copper mb-8" />
-            <p className="text-grey text-lg md:text-xl mb-4">
-              A massive platform shift is underway. Most mid-sized companies know they need to harness AI but lack strategic guidance—wasting precious cycles and falling behind.
+            <p className="text-grey text-lg md:text-xl mb-12">
+              Three steps. No big commitment upfront.
             </p>
-            <blockquote className="border-l-4 border-copper pl-6 italic text-brown text-xl md:text-2xl mb-6">
-              Even Andrej Karpathy—one of OpenAI’s founders—describes the shift as a
-              <span className="text-copper font-bold"> “magnitude 9 earthquake.”</span>
-            </blockquote>
-            <p className="text-grey md:text-lg">
-              KFoundry partners with forward-thinking execs to seize this moment—not just react to it.
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="text-center md:text-left">
+                <span className="text-copper font-heading text-5xl font-bold">1</span>
+                <h3 className="font-heading font-bold text-brown text-xl mt-2 mb-3">We Listen</h3>
+                <p className="text-grey">
+                  Tell us about your business—where you&apos;re headed, what&apos;s slowing you down, what you wish your team had time to tackle. We find where AI creates the most leverage.
+                </p>
+              </div>
+              <div className="text-center md:text-left">
+                <span className="text-copper font-heading text-5xl font-bold">2</span>
+                <h3 className="font-heading font-bold text-brown text-xl mt-2 mb-3">We Build</h3>
+                <p className="text-grey">
+                  We pick the highest-impact opportunity and ship a working solution in weeks—not a deck, not a roadmap, a real tool your team uses.
+                </p>
+              </div>
+              <div className="text-center md:text-left">
+                <span className="text-copper font-heading text-5xl font-bold">3</span>
+                <h3 className="font-heading font-bold text-brown text-xl mt-2 mb-3">We Scale</h3>
+                <p className="text-grey">
+                  Results in hand, we expand what&apos;s working. Your team learns the tools along the way.
+                </p>
+              </div>
+            </div>
+            <p className="text-grey text-lg text-center md:text-left">
+              No 6-month discovery phase. No massive SOW. It starts with a conversation.
             </p>
           </div>
         </section>
@@ -62,7 +81,7 @@ export default function Home() {
             <h2 className="font-heading text-brown text-3xl md:text-4xl font-bold mb-4">Why KFoundry?</h2>
             <div className="w-24 h-1 bg-copper mb-8" />
             <p className="text-grey text-lg md:text-xl mb-8">
-              Foundries forge raw materials into valuable tools. KFoundry forges your <span className="text-copper font-semibold">K=Knowledge</span> into a durable, unfair business advantage—built on modern AI.
+              Foundries forge raw materials into valuable tools. KFoundry forges your <span className="text-copper font-semibold">K=Knowledge</span> into a durable, unfair business advantage-built on modern AI.
             </p>
             <ul className="list-disc list-inside space-y-2 text-grey text-lg ml-4">
               <li>Rooted in deep technology expertise and pragmatic business outcomes</li>
@@ -125,7 +144,7 @@ export default function Home() {
             <h2 className="font-heading text-brown text-3xl md:text-4xl font-bold mb-4">Cost of Inaction</h2>
             <div className="w-24 h-1 bg-copper mb-8" />
             <p className="text-lg text-grey mb-4">
-              <span className="font-semibold text-copper">The uncomfortable truth:</span> Every month your team spends without real AI fluency, your competitors are compounding their advantage. This isn't a technology you can "wait and see" on. The companies that invest in their people's AI competency now will be the ones setting the pace—everyone else will be reacting.
+              <span className="font-semibold text-copper">The uncomfortable truth:</span> Every month your team spends without real AI fluency, your competitors are compounding their advantage. This isn't a technology you can "wait and see" on. The companies that invest in their people's AI competency now will be the ones setting the pace-everyone else will be reacting.
             </p>
             <p className="text-grey">
               Locking down AI tools doesn't protect your company. It guarantees you'll be hiring to catch up while your competitors are shipping with smaller, faster, AI-augmented teams.
@@ -140,7 +159,7 @@ export default function Home() {
               Turn Your Knowledge Into Competitive Advantage
             </h2>
             <p className="text-xl mb-8 text-cream/80 max-w-2xl mx-auto">
-              Schedule a 1:1 strategy call—we&apos;ll help you chart a direct path to AI-driven wins.
+              Schedule a 1:1 strategy call-we&apos;ll help you chart a direct path to AI-driven wins.
             </p>
             <Button
               className="bg-gold hover:bg-copper text-brown font-bold px-10 py-6 text-lg"
