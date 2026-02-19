@@ -51,14 +51,14 @@ export default function Home() {
                 <span className="text-copper font-heading text-5xl font-bold">1</span>
                 <h3 className="font-heading font-bold text-brown text-xl mt-2 mb-3">We Listen</h3>
                 <p className="text-grey">
-                  Tell us about your business—where you&apos;re headed, what&apos;s slowing you down, what you wish your team had time to tackle. We find where AI creates the most leverage.
+                  Tell us about your business-where you&apos;re headed, what&apos;s slowing you down, what you wish your team had time to tackle. We find where AI creates the most leverage.
                 </p>
               </div>
               <div className="text-center md:text-left">
                 <span className="text-copper font-heading text-5xl font-bold">2</span>
                 <h3 className="font-heading font-bold text-brown text-xl mt-2 mb-3">We Build</h3>
                 <p className="text-grey">
-                  We pick the highest-impact opportunity and ship a working solution in weeks—not a deck, not a roadmap, a real tool your team uses.
+                  We pick the highest-impact opportunity and ship a working solution in weeks-not a deck, not a roadmap, a real tool your team uses.
                 </p>
               </div>
               <div className="text-center md:text-left">
@@ -80,13 +80,10 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <h2 className="font-heading text-brown text-3xl md:text-4xl font-bold mb-4">Why KFoundry?</h2>
             <div className="w-24 h-1 bg-copper mb-8" />
-            <p className="text-grey text-lg md:text-xl mb-8">
-              Foundries forge raw materials into valuable tools. KFoundry forges your <span className="text-copper font-semibold">K=Knowledge</span> into a durable, unfair business advantage-built on modern AI.
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-grey text-lg ml-4">
-              <li>Rooted in deep technology expertise and pragmatic business outcomes</li>
-              <li>Rapid pilots, then scale: No faith-based IT projects</li>
-              <li>Proprietary knowledge stays yours; value stays compounding</li>
+            <ul className="space-y-4 text-lg">
+              <li className="text-grey"><span className="font-bold text-brown">We&apos;ve built companies, not just models.</span> Decades of shipping products, running teams, and making payroll.</li>
+              <li className="text-grey"><span className="font-bold text-brown">Your business first.</span> We show up curious, not with a pre-loaded deck.</li>
+              <li className="text-grey"><span className="font-bold text-brown">Working software in weeks.</span> If we can&apos;t demo it, we didn&apos;t do anything.</li>
             </ul>
           </div>
         </section>
