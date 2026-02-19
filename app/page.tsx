@@ -17,9 +17,9 @@ export default function Home() {
             We Are Your <span className="text-copper">Chief AI Officer.</span>
           </h1>
           <p className="text-brown/90 text-lg md:text-2xl mb-10 max-w-2xl mx-auto">
-            Strategy. Implementation. AI Outcomes that matter.
+            Most companies know AI matters. Few have the bandwidth to act on it.
             <br className="hidden md:inline" />
-            For mid-size companies ready to act on the AI platform shift.
+            We bring decades of business and engineering experience to find high-impact opportunities—then build and ship them in weeks, not quarters.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
