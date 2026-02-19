@@ -12,9 +12,9 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative flex flex-col items-center justify-center text-center py-24 md:py-32 px-4 bg-cream">
-          <span className="uppercase tracking-widest text-copper text-base md:text-lg font-semibold mb-4">Your Knowledge, Forged Into Advantage</span>
+          <span className="uppercase tracking-widest text-copper text-base md:text-lg font-semibold mb-4">Building with AI. Grounded in Your Business.</span>
           <h1 className="font-heading text-brown text-4xl md:text-6xl font-bold mb-6 max-w-3xl mx-auto">
-            We Are Your <span className="text-copper">Chief AI Officer.</span>
+            You Know Your Business. <span className="text-copper">We Know How to Make It Faster.</span>
           </h1>
           <p className="text-brown/90 text-lg md:text-2xl mb-10 max-w-2xl mx-auto">
             Most companies know AI matters. Few have the bandwidth to act on it.
